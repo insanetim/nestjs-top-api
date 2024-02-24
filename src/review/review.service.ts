@@ -2,7 +2,7 @@ import { Model } from 'mongoose'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 
-import { Review, ReviewDocument } from 'src/schemas/review.schema'
+import { Review, ReviewDocument } from '../schemas/review.schema'
 import { CreateReviewDto } from './dto/create-review.dto'
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 
-import { AuthController } from './auth.controller'
 import { Auth, AuthSchema } from '../schemas/auth.schema'
+import { AuthController } from './auth.controller'
 
 @Module({
   imports: [

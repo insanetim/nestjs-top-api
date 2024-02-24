@@ -2,13 +2,11 @@ import { Module } from '@nestjs/common'
 
 import { ReviewController } from './review.controller'
 import { MongooseModule } from '@nestjs/mongoose'
-import { ReviewModel, ReviewSchema } from './review.model'
+import { Review, ReviewSchema } from '../schemas/review.schema'
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: ReviewModel.name, schema: ReviewSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Review.name, schema: ReviewSchema }]),
   ],
   controllers: [ReviewController],
 })

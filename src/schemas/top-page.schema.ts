@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { HydratedDocument } from 'mongoose'
 
-export type TopPageDocument = HydratedDocument<TopPageModel>
+export type TopPageDocument = HydratedDocument<TopPage>
 
 export enum TopLevelCategory {
   Courses,
@@ -10,7 +10,7 @@ export enum TopLevelCategory {
   Products,
 }
 
-export class HhData {
+class HhData {
   @Prop()
   count: number
 
@@ -24,7 +24,7 @@ export class HhData {
   seniorSalary: number
 }
 
-export class TopPageAdvantages {
+class TopPageAdvantages {
   @Prop()
   title: string
 
@@ -33,7 +33,7 @@ export class TopPageAdvantages {
 }
 
 @Schema({ timestamps: true })
-export class TopPageModel {
+export class TopPage {
   @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory
 
@@ -65,4 +65,4 @@ export class TopPageModel {
   tags: string[]
 }
 
-export const TopPageSchema = SchemaFactory.createForClass(TopPageModel)
+export const TopPageSchema = SchemaFactory.createForClass(TopPage)

@@ -35,14 +35,23 @@ describe('ReviewController (e2e)', () => {
       .post('/review/create')
       .send(testDto)
       .expect(201)
+
     createdId = body._id
     expect(createdId).toBeDefined()
+  })
+
+  it('/review/create (POST) - failed', async () => {
+    await request(app.getHttpServer())
+      .post('/review/create')
+      .send({ ...testDto, rating: 0 })
+      .expect(400)
   })
 
   it('/review/byProduct/:productId (GET) - success', async () => {
     const { body } = await request(app.getHttpServer())
       .get('/review/byProduct/' + new Types.ObjectId().toHexString())
       .expect(200)
+
     expect(body.length).toBe(0)
   })
 
@@ -50,6 +59,7 @@ describe('ReviewController (e2e)', () => {
     const { body } = await request(app.getHttpServer())
       .get('/review/byProduct/' + productId)
       .expect(200)
+
     expect(body.length).toBe(1)
   })
 

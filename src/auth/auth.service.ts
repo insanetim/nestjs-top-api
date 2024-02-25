@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { JwtService } from '@nestjs/jwt'
-import { compare, genSalt, hash } from 'bcryptjs'
 import { Model } from 'mongoose'
+import { compare, genSalt, hash } from 'bcryptjs'
 
-import { User, UserDocument } from '../schemas/user.schema'
+import { User } from '../schemas/user.schema'
 import { AuthDto } from './dto/auth.dto'
 import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from './auth.constants'
 

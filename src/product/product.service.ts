@@ -32,19 +32,9 @@ export class ProductService {
   async findWithReviews(dto: FindProductDto) {
     return this.productModel
       .aggregate([
-        {
-          $match: {
-            categories: dto.category,
-          },
-        },
-        {
-          $sort: {
-            _id: 1,
-          },
-        },
-        {
-          $limit: dto.limit,
-        },
+        { $match: { categories: dto.category } },
+        { $sort: { _id: 1 } },
+        { $limit: dto.limit },
         {
           $lookup: {
             from: 'reviews',

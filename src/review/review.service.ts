@@ -13,7 +13,7 @@ export class ReviewService {
     return this.reviewModel.create(dto)
   }
 
-  async delete(id: string): Promise<ReviewDocument | null> {
+  async deleteById(id: string): Promise<ReviewDocument | null> {
     return this.reviewModel.findByIdAndDelete(id).exec()
   }
 

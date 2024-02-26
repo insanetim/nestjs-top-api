@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   HttpCode,
+  HttpStatus,
   Post,
   UsePipes,
   ValidationPipe,
@@ -27,8 +28,8 @@ export class AuthController {
   }
 
   @UsePipes(new ValidationPipe())
+  @HttpCode(HttpStatus.OK)
   @Post('login')
-  @HttpCode(200)
   async login(@Body() { login, password }: AuthDto) {
     const { email } = await this.authService.validateUser(login, password)
     return this.authService.login(email)

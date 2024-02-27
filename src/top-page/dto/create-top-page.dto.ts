@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsDate,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -14,14 +15,12 @@ class HhDataDto {
   @IsNumber()
   count: number
 
-  @IsNumber()
-  juniorSalary: number
+  @IsArray()
+  @IsString({ each: true })
+  titles: string[]
 
-  @IsNumber()
-  middleSalary: number
-
-  @IsNumber()
-  seniorSalary: number
+  @IsDate()
+  updatedAt: Date
 }
 
 class TopPageAdvantagesDto {

@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Logger,
   NotFoundException,
   Param,
   Patch,
@@ -23,10 +24,14 @@ import {
   TOP_PAGE_NOT_FOUND_ERROR,
 } from './top-page.constants'
 import { JwtAuthGuard } from '../auth/guards/jwt.guard'
+import { HhService } from '../hh/hh.service'
 
 @Controller('top-page')
 export class TopPageController {
-  constructor(private readonly topPageService: TopPageService) {}
+  constructor(
+    private readonly topPageService: TopPageService,
+    private readonly hhService: HhService
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
@@ -88,5 +93,15 @@ export class TopPageController {
   @Get('textSearch/:text')
   async textSearch(@Param('text') text: string) {
     return this.topPageService.findByText(text)
+  }
+
+  @Post('test')
+  async test() {
+    const pages = await this.topPageService.findForHhUpdate(new Date())
+    for (const page of pages) {
+      const hhData = await this.hhService.getData('The Matrix')
+      page.hh = hhData
+      await this.topPageService.updateById(page._id, page)
+    }
   }
 }

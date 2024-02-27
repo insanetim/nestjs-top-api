@@ -10,18 +10,15 @@ export enum TopLevelCategory {
   Products,
 }
 
-class HhData {
+export class HhData {
   @Prop()
   count: number
 
-  @Prop()
-  juniorSalary: number
+  @Prop([String])
+  titles: string[]
 
   @Prop()
-  middleSalary: number
-
-  @Prop()
-  seniorSalary: number
+  updatedAt: Date
 }
 
 class TopPageAdvantages {

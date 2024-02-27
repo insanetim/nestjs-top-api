@@ -5,7 +5,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Logger,
   NotFoundException,
   Param,
   Patch,
@@ -14,6 +13,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common'
+import { Cron, CronExpression, SchedulerRegistry } from '@nestjs/schedule'
 
 import { CreateTopPageDto } from './dto/create-top-page.dto'
 import { FindTopPageDto } from './dto/find-top-page.dto'
@@ -30,7 +30,8 @@ import { HhService } from '../hh/hh.service'
 export class TopPageController {
   constructor(
     private readonly topPageService: TopPageService,
-    private readonly hhService: HhService
+    private readonly hhService: HhService,
+    private readonly schedulerRegistry: SchedulerRegistry
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -95,8 +96,9 @@ export class TopPageController {
     return this.topPageService.findByText(text)
   }
 
-  @Post('test')
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, { name: 'test' })
   async test() {
+    const job = this.schedulerRegistry.getCronJob('test')
     const pages = await this.topPageService.findForHhUpdate(new Date())
     for (const page of pages) {
       const hhData = await this.hhService.getData('The Matrix')
